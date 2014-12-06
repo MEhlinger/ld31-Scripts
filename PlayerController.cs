@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour {
 
 	public float health;
 	public float sanity;
+	public bool onCouch;
 
 	private float hungerTimer;
 	private float sanityTimer;
@@ -13,11 +14,13 @@ public class PlayerController : MonoBehaviour {
 	{
 		hungerTimer = 100;
 		sanityTimer = 300;
+		onCouch = false;
 	}
 	
 
 	void Update () 
 	{
+		SitOnCouch();
 		StatDecrement();
 		Movement();
 	}
@@ -26,13 +29,16 @@ public class PlayerController : MonoBehaviour {
 
 	void Movement()
 	{
-		if ((Input.GetKey (KeyCode.A)) || (Input.GetKey (KeyCode.LeftArrow)))
+		if (onCouch == false)
 		{
-			transform.position += new Vector3(-0.02f, 0.0f, 0.0f);
-		}
-		if ((Input.GetKey (KeyCode.D)) || (Input.GetKey (KeyCode.RightArrow)))
-		{
-			transform.position += new Vector3(0.02f, 0.0f, 0.0f);
+			if ((Input.GetKey (KeyCode.A)) || (Input.GetKey (KeyCode.LeftArrow)))
+			{
+				transform.position += new Vector3(-0.02f, 0.0f, 0.0f);
+			}
+			if ((Input.GetKey (KeyCode.D)) || (Input.GetKey (KeyCode.RightArrow)))
+			{
+				transform.position += new Vector3(0.02f, 0.0f, 0.0f);
+			}
 		}
 	}
 
@@ -48,10 +54,37 @@ public class PlayerController : MonoBehaviour {
 		}
 		if (sanityTimer <= 0)
 		{
-			sanity --;
+			if (onCouch == false)
+			{
+				sanity --;
+			}
+			else
+			{
+				sanity += 10;
+				onCouch = false;
+				if (sanity > 100)
+				{
+					sanity = 100;
+				}
+			}
 			sanityTimer = 300;
 		}
 
+	}
+
+	void SitOnCouch()
+	{
+		if (onCouch)
+		{
+			GetComponent<SpriteRenderer>().enabled = false;
+			// Call to change the sprite of couch to couch w/ player on it...
+		}
+		else
+		{
+			GetComponent<SpriteRenderer>().enabled = true;
+			// Call to change sprite of couch back to only couch
+
+		}
 	}
 
 }
