@@ -18,6 +18,12 @@ public class PlayerAttack : MonoBehaviour {
 
 	void Update()
 	{
+		if (attacking)
+		{
+			transform.position = oldPos;
+			attacking = false;
+		}
+
 		attackTimer --;
 
 		if  (attackTimer <= 0)
@@ -40,15 +46,7 @@ public class PlayerAttack : MonoBehaviour {
 			transform.position += new Vector3(0.05f, 0.0f, 0.0f);
 			canAttack = false;
 		}
-	}
 
-
-	void LateUpdate()
-	{
-		if (attacking)
-		{
-			transform.position = oldPos;
-			attacking = false;
-		}
+		Debug.Log(attacking); //DEBUG
 	}
 }

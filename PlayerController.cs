@@ -1,11 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[System.Serializable]
+public class Boundary
+{
+	public float xMin, xMax;
+}
+
 public class PlayerController : MonoBehaviour {
 
 	public float health;
 	public float sanity;
 	public bool onCouch;
+	public Boundary boundary;
 
 	private float hungerTimer;
 	private float sanityTimer;
@@ -40,6 +47,13 @@ public class PlayerController : MonoBehaviour {
 				transform.position += new Vector3(0.02f, 0.0f, 0.0f);
 			}
 		}
+
+		transform.position = new Vector3
+		(
+			Mathf.Clamp (transform.position.x, boundary.xMin, boundary.xMax),
+			transform.position.y
+		);
+
 	}
 
 	void StatDecrement()
