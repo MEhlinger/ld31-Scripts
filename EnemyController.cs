@@ -34,7 +34,6 @@ public class EnemyController : MonoBehaviour {
 				direction = -1.0f;
 			}
 			directionTimer = 100;
-			Debug.Log(direction);
 		}
 
 
@@ -65,8 +64,13 @@ public class EnemyController : MonoBehaviour {
 			PC.GetComponent<PlayerController>().sanity -= insanityCost;
 			direction *= -1;
 		}
+	}
 
-		else if ((other.gameObject == PC) && (PC.GetComponent<PlayerAttack>().attacking == true))
+
+	void OnTriggerStay2D(Collider2D other)
+	{
+
+		if ((other.gameObject == PC) && (PC.GetComponent<PlayerAttack>().attacking == true))
 		{
 			Destroy(gameObject);
 		}

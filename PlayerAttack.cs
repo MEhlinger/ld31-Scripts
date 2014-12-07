@@ -46,7 +46,5 @@ public class PlayerAttack : MonoBehaviour {
 			transform.position += new Vector3(0.05f, 0.0f, 0.0f);
 			canAttack = false;
 		}
-
-		Debug.Log(attacking); //DEBUG
 	}
 }
