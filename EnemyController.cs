@@ -7,6 +7,7 @@ public class EnemyController : MonoBehaviour {
 
 	public float damage;
 	public float insanityCost;
+	private bool attacked;
 
 	public float speed; //Should be .02 for player speed. Adjust in editor accordingly.
 	public GameObject PC;
