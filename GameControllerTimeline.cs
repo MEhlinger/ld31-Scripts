@@ -8,6 +8,9 @@ public class GameControllerTimeline : MonoBehaviour {
 	public GameObject eastWindow;
 	public GameObject door;
 
+	private float monsterVal;
+	private string toSpawn;
+
 	private float entryVal;
 	private GameObject activeEntry;
 
@@ -18,7 +21,7 @@ public class GameControllerTimeline : MonoBehaviour {
 	void Start () 
 	{
 		entryTimer = 500; //Subject to change.
-		entryIntervalMultiplier = 5000;
+		entryIntervalMultiplier = 3000;
 	}
 	
 	
@@ -28,8 +31,11 @@ public class GameControllerTimeline : MonoBehaviour {
 
 		if (entryTimer <= 0)
 		{
-			entryTimer = (Random.value + 0.1f) * entryIntervalMultiplier;
-			entryIntervalMultiplier -= 100.0f;
+			entryTimer = (Random.value + .15f) * entryIntervalMultiplier;
+			if (entryIntervalMultiplier >= 501)
+			{
+				entryIntervalMultiplier -= 500.0f;
+			}
 
 			entryVal = Mathf.Round(Random.Range(1.0f, 4.0f));
 
@@ -60,10 +66,33 @@ public class GameControllerTimeline : MonoBehaviour {
 			}
 			else
 			{
+
+				//DETERMINE WHICH MONSTER TO SPAWN
+				monsterVal = Mathf.Round(Random.Range(1.0f, 4.0f));
+
+
+				if (monsterVal == 1)
+				{
+					toSpawn = "Slime";
+				}
+				if (monsterVal == 2)
+				{
+					toSpawn = "Hulk";
+				}
+				if (monsterVal == 3)
+				{
+					toSpawn = "Slither";
+				}
+				if (monsterVal == 4)
+				{
+					toSpawn = "Spider";
+				}
+
+
 				GameObject monster = Instantiate
 					(
-						Resources.Load("Slime"), 
-						new Vector2 (activeEntry.transform.position.x, activeEntry.transform.position.y - 0.5f),
+						Resources.Load(toSpawn), 
+						new Vector2 (activeEntry.transform.position.x, activeEntry.transform.position.y - 0.3f),
 						transform.rotation
 					) 
 				as GameObject;

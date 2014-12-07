@@ -62,7 +62,7 @@ public class EnemyController : MonoBehaviour {
 		if ((other.gameObject == PC) && (PC.GetComponent<PlayerAttack>().attacking == false))
 		{
 			PC.GetComponent<PlayerController>().health -= damage;
-			PC.GetComponent<PlayerController>().sanity -= insanityCost;
+			attacked = true;
 			direction *= -1;
 		}
 	}
@@ -74,6 +74,10 @@ public class EnemyController : MonoBehaviour {
 		if ((other.gameObject == PC) && (PC.GetComponent<PlayerAttack>().attacking == true))
 		{
 			Destroy(gameObject);
+			if (attacked)
+			{
+				PC.GetComponent<PlayerController>().health += damage;
+			}
 		}
 	}
 

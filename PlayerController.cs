@@ -13,6 +13,14 @@ public class PlayerController : MonoBehaviour {
 	public float sanity;
 	public bool onCouch;
 	public Boundary boundary;
+	public float baseSpeed;
+	private float speed;
+	private bool running;
+
+	public Sprite onCouchSpr;
+	public Sprite offCouchSpr;
+
+	public GameObject Couch;
 
 	private float hungerTimer;
 	private float sanityTimer;
@@ -38,13 +46,25 @@ public class PlayerController : MonoBehaviour {
 	{
 		if (onCouch == false)
 		{
+			if (Input.GetKey (KeyCode.Q))
+			{
+				speed = baseSpeed * 2f;
+				running = true;
+			}
+			else
+			{
+				speed = baseSpeed;
+				running = false;
+			}
 			if ((Input.GetKey (KeyCode.A)) || (Input.GetKey (KeyCode.LeftArrow)))
 			{
-				transform.position += new Vector3(-0.02f, 0.0f, 0.0f);
+				transform.position += new Vector3(speed * -1.0f, 0.0f, 0.0f);
+				transform.eulerAngles = new Vector2(0, 0);
 			}
 			if ((Input.GetKey (KeyCode.D)) || (Input.GetKey (KeyCode.RightArrow)))
 			{
-				transform.position += new Vector3(0.02f, 0.0f, 0.0f);
+				transform.position += new Vector3(speed, 0.0f, 0.0f);
+				transform.eulerAngles = new Vector2(0, 180);
 			}
 		}
 
@@ -64,6 +84,10 @@ public class PlayerController : MonoBehaviour {
 		if (hungerTimer <= 0)
 		{
 			health --;
+			if (running)
+			{
+				health--;
+			}
 			hungerTimer = 100;
 		}
 		if (sanityTimer <= 0)
@@ -91,12 +115,12 @@ public class PlayerController : MonoBehaviour {
 		if (onCouch)
 		{
 			GetComponent<SpriteRenderer>().enabled = false;
-			// Call to change the sprite of couch to couch w/ player on it...
+			Couch.GetComponent<SpriteRenderer>().sprite = onCouchSpr;
 		}
 		else
 		{
 			GetComponent<SpriteRenderer>().enabled = true;
-			// Call to change sprite of couch back to only couch
+			Couch.GetComponent<SpriteRenderer>().sprite = offCouchSpr;
 
 		}
 	}

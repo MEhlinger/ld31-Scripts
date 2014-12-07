@@ -28,7 +28,7 @@ public class DescendStair : MonoBehaviour {
 	{
 		if (Input.GetKeyDown (KeyCode.Space) && atDescend)
 		{
-			PC.transform.position += new Vector3(0.0f, -1.65f, 0.0f);
+			PC.transform.position += new Vector3(0.0f, -1.60f, 0.0f);
 		}
 	}
 }

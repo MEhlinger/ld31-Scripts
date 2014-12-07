@@ -7,12 +7,13 @@ public class PlayerAttack : MonoBehaviour {
 	private bool canAttack;
 	private Vector3 oldPos;
 
+	private bool attackFrame2; //should make the player less vulnerable while attacking
 	public bool attacking;
 
 	void Start() 
 	{
 		canAttack = true;
-		attackTimer = 70;
+		attackTimer = 20;
 	}
 
 
@@ -21,14 +22,22 @@ public class PlayerAttack : MonoBehaviour {
 		if (attacking)
 		{
 			transform.position = oldPos;
-			attacking = false;
+			if (attackFrame2)
+			{
+				attacking = false;
+				attackFrame2 = false;
+			}
+			else
+			{
+				attackFrame2 = true;
+			}
 		}
 
 		attackTimer --;
 
 		if  (attackTimer <= 0)
 		{
-			attackTimer = 70;
+			attackTimer = 20;
 			canAttack = true;
 		}
 
@@ -36,14 +45,14 @@ public class PlayerAttack : MonoBehaviour {
 		{
 			attacking = true;
 			oldPos = transform.position;
-			transform.position += new Vector3(-0.05f, 0.0f, 0.0f);
+			transform.position += new Vector3(-0.2f, 0.0f, 0.0f);
 			canAttack = false;
 		}
 		else if ((Input.GetKeyDown (KeyCode.RightShift)) && (canAttack))
 		{
 			attacking = true;
 			oldPos = transform.position;
-			transform.position += new Vector3(0.05f, 0.0f, 0.0f);
+			transform.position += new Vector3(0.2f, 0.0f, 0.0f);
 			canAttack = false;
 		}
 	}
