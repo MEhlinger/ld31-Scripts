@@ -19,6 +19,7 @@ public class EnemyController : MonoBehaviour {
 	void Start()
 	{
 		directionTimer = 100;
+		PC = GameObject.FindWithTag("playerChar");
 	}
 
 	void Update()

@@ -3,8 +3,8 @@ using System.Collections;
 
 public class EntryControl : MonoBehaviour {
 
-	private bool open;
-	private bool stateChanging; //Stores whether the window/door is slated to be opened/closed
+	public bool open;
+	public bool stateChanging; //Stores whether the window/door is slated to be opened/closed
 
 	public GameObject PC;
 
