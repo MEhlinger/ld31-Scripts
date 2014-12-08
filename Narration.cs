@@ -12,6 +12,7 @@ public class Narration : MonoBehaviour {
 	private string nextText;
 
 	private float textTimer;
+	private float textClearTimer;
 	public float textTimerInterval;
 
 
@@ -21,13 +22,12 @@ public class Narration : MonoBehaviour {
 	void Start()
 	{
 		CreateArray();
-		textTimer = textTimerInterval;
+		textTimer = textTimerInterval / 2;
 	}
 
 	void Update()
 	{
 		TimerDown();
-
 	}
 
 
@@ -48,12 +48,26 @@ public class Narration : MonoBehaviour {
 		narrations.Add("'I'm not crazy.");
 		narrations.Add("'I just get it... I know what's out there...");
 		narrations.Add("'Oh god...'");
+		narrations.Add("'There are things out there...'");
+		narrations.Add("'The mailman is coming soon...'");
+		narrations.Add("'I just need to make it until he arrives.'");
+		narrations.Add("'What's happening?");
+		narrations.Add("'Oh god...'");
+		narrations.Add("'I can't handle this...");
+		narrations.Add("'Not much longer now...'");
+		narrations.Add("'If he can see them too...'");
+		narrations.Add("'The mail should be here any minute now!'");
+		narrations.Add("'He's coming!'");
 
 	}
 
 	void TimerDown()
 	{
 		textTimer --;
+		if (textClearTimer <= 0)
+		{
+			 narrative.text = " ";
+		}
 
 		if (textTimer <= 0)
 		{
@@ -63,7 +77,6 @@ public class Narration : MonoBehaviour {
 			{
 				textTimerInterval *= 4;
 			}  
-			
 		}
 	}
 
@@ -74,6 +87,7 @@ public class Narration : MonoBehaviour {
 			nextText = narrations[0].ToString();
 			narrations.RemoveAt(0);
 			narrative.text = nextText;
+			textClearTimer = textTimer / 2f;
 		}
 		else
 		{
